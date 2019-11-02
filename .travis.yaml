@@ -1,0 +1,13 @@
+sudo: required
+services:
+ - docker
+
+before_install:
+ - docker build -t jonathanzea/docker-react -f Dockerfile.dev .
+
+script: (contain the commands needed to run the tests)
+ - docker run jonathanzea/docker-react npm run test -- --coverage
+important to notice that travis-ci will ASSUME that RUN TESTS
+is just a single run and exit, but remember that our tests
+with NPM gets hanged there with an interface to interact. So 
+the WORKAROUND is the command `-- --coverage`
